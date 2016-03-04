@@ -1,0 +1,7 @@
+#!/bin/bash
+EXECUTABLE=$(echo "$1" | sed 's/\(.*\)\..*/\1/')
+arm-linux-gnueabi-gcc -o $EXECUTABLE -mcpu=arm1176jzf-s -mtune=arm1176jzf-s $1
+qemu-arm -L /usr/arm-linux-gnueabi/ $EXECUTABLE
+RET=$?
+rm $EXECUTABLE
+exit $RET

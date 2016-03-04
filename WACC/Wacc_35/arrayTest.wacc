@@ -1,0 +1,10 @@
+begin 
+
+int[] bs = [1,2,3];
+int[] as = [1,2,3,4];
+int[][] cs = [as,bs];
+string ss = "hi";
+print (ss[0])
+
+end
+

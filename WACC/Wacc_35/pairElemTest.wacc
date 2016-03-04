@@ -1,0 +1,12 @@
+begin
+int f(int x, int z, int k) is 
+println x;
+println z;
+println k;
+return x
+end
+
+int[] a = [1,2,3,4];
+int y = call f(a[1],a[2],a[3]);
+println (y + 2)
+end

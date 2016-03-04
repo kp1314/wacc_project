@@ -1,0 +1,36 @@
+#!/bin/bash
+
+CP='lib/antlr-4.4-complete.jar:bin'
+MAIN='smacc.SMACC'
+NUMARGS=$#
+
+if [ "$NUMARGS" -lt "1" ]; then
+  java -cp $CP $MAIN -h
+  exit 0
+fi
+
+FLAGS=""
+# Build up all args into one string to pass to java
+# Leaving last argument - wacc program intact
+while [ "$#" -gt "1" ]; do
+  FLAGS="$FLAGS $1"
+  shift
+done
+
+# If no source file but a single help flag instead print help
+if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
+  java -cp $CP $MAIN -h
+  exit 0
+fi
+
+if [ -f $1 ]; then
+  # Get filename from input path
+  FILENAME=`basename $1`
+  # Strip extension and append .s to get output file
+  ARM=$(echo "$FILENAME" | sed 's/\(.*\)\..*/\1/').s
+  java -cp $CP $MAIN $FLAGS -o $ARM <$1
+  exit $?
+else
+  echo "Error: $1 cannot be opened"
+  exit 1
+fi

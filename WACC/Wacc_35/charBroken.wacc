@@ -1,0 +1,37 @@
+begin
+
+bool x(int y) is 
+return true
+end
+
+char f(int x) is
+char x = 'y';
+return x
+end
+
+char f(char x) is
+char a = 'x';
+println x;
+return a
+end
+
+int g(int x) is
+return 4
+end
+
+int g(int x, char y) is
+int z = ord y;
+return (z + x)
+end
+
+int billy = 1;
+int kiran = call g(billy + 3, 'z');
+println kiran;
+char c = 'r';
+bool b = call x(5);
+c = call f(c);
+int p = call g(5);
+println c;
+c = call f(5);
+println c
+end

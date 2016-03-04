@@ -1,0 +1,6 @@
+begin
+char x = 'c';
+char p = 'g';
+print x;
+print p
+end

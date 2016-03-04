@@ -1,0 +1,32 @@
+\subsection*{Abstract Syntax Tree Viewer}
+
+The Abstract Syntax Tree (AST) Viewer was originaly built as a way to check the 
+integrity of our AST construction, the first plan being to build a graphical
+viewer similar to that of ANTLR's Grun given the \texttt{-gui} flag. However after
+consideration, we realised it would be far simpler and more practical to build a
+static viewer that produces vector images.
+
+The final AST Viewer works by walking over the abstract syntax tree using our
+listener pattern and produces a Graphviz source in the current directory that it
+then compiles with dot.
+
+While iterating over the tree it assigns all nodes an index which used as the 
+variable name in the dot source. When it is declared the \texttt{toString} of
+the AST node is used to give a name and its type determines the shape of the
+resulting node.
+
+Functions are prototyped first to ensure they are defined before they are
+called. We have two display modes, structured and unstructured, where structured
+lays functions out horizontally with no overlapping or arcs to show calls and
+unstructured places arcs on call nodes causing the Graphviz algorithm to place
+functions within others. The latter allows you to see the logical structure of
+the program yet the prior better relates to the generating wacc source code.
+
+The viewer can be accessed with the \texttt{--graph} flag followed by a filename
+to output to. The format can be changed with the \texttt{--format} flag, we
+currently have Portable Network Graphics (PNG), Scalable Vector Graphics (SVG) 
+and Postscript (PS). We default to a structured layout but unstructured graphs 
+can be created by setting \texttt{--unstructured-graph}.
+It is also possible with the \texttt{--graph-no-compile}
+flag to leave the dot source uncompiled, full documentation and usage can be
+the program with \texttt{--help}.

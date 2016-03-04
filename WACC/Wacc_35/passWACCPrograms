@@ -1,0 +1,35 @@
+#!/bin/bash
+
+#Assumes wacc_examples cloned in parent directory if no args specified
+
+#command='java -cp lib/antlr-4.4-complete.jar:bin smacc.SMACC'
+
+LOGNAME="failingCases"
+
+
+defaultdir="../wacc_examples/"
+rm $LOGNAME
+
+dir=$1
+[[ $# -eq 0 ]] && dir=$defaultdir
+if [ "$1" == "-m" ]; then 
+  [[  $# -gt "1" ]] && dir=$2 || dir=$defaultdir
+  make smacc
+fi
+
+for i in $(find $dir -name '*.wacc'); do
+  echo "Passing $i"
+  
+#$command < $i
+  ./compile $i
+  COMPILEOUT=$?
+  NAME=$(basename $i | sed 's/\(.*\)\..*/\1/').s
+  echo 'Emulating..'
+  ./emulate $NAME
+  EMULATEOUT=$?
+  if [[ $EMULATEOUT -gt "0" ]] || [[ $COMPILEOUT -gt "0" ]]; then
+    echo $NAME >> $LOGNAME
+  fi
+
+  rm $NAME
+done

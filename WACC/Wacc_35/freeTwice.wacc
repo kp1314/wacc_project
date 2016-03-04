@@ -1,0 +1,6 @@
+begin
+ int[] xs = [1,2,3,4];
+ free xs;
+ free xs
+end
+
